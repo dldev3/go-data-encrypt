@@ -19,10 +19,19 @@ func encrypt(key int, plainText string) (result string) {
 	var hashedString = ""
 
 	findOne := func(r rune) rune {
+		pos := strings.Index(originalLetter, string([]rune{r}))
 
+		if pos != -1 {
+			letterPosition := (pos + len(originalLetter)) % len(originalLetter)
+			hashedString = hashedString + string(hashLetter[letterPosition])
+		}
+
+		return r
 	}
 
 	strings.Map(findOne, plainText)
+
+	return hashedString
 
 }
 
